@@ -1,0 +1,6 @@
+muse
+flask
+flask_restful
+flasgger
+mongoengine
+music-chart-api
