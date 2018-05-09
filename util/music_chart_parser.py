@@ -49,9 +49,20 @@ def parse_music_chart_site(site_name=None):
         process_logger.log('info', 'parse {0} chart was finished'.format(site_name))
 
 
-def run():
+def parse():
     MusicChartDocument.drop_collection()
+    procs = []
 
-    Process(name='melon-chart-parser', target=parse_music_chart_site, args=('melon',)).start()
-    Process(name='genie-chart-parser', target=parse_music_chart_site, args=('genie',)).start()
-    Process(name='bugs-chart-parser', target=parse_music_chart_site, args=('bugs',)).start()
+    melon_proc = Process(name='melon-chart-parser', target=parse_music_chart_site, args=('melon',))
+    genie_proc = Process(name='genie-chart-parser', target=parse_music_chart_site, args=('genie',))
+    bugs_proc = Process(name='bugs-chart-parser', target=parse_music_chart_site, args=('bugs',))
+
+    procs.append(melon_proc)
+    procs.append(genie_proc)
+    procs.append(bugs_proc)
+
+    for p in procs:
+        p.start()
+
+    for p in procs:
+        p.join()
