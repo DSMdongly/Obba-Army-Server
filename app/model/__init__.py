@@ -8,4 +8,9 @@ class Mongo(object):
 
     def init_app(self, app):
         mongo = app.config['MONGO']
-        connect(mongo['db'], host=mongo['host'], port=mongo['port'])
+
+        connect(mongo['db'],
+                host=mongo['host'],
+                port=mongo['port'],
+                username=mongo.get('username'),
+                password=mongo.get('password'))

@@ -6,3 +6,6 @@ class Router:
     def init_app(self, app):
         from app.view import music_chart
         app.register_blueprint(music_chart.api.blueprint)
+
+        from app.view import song
+        app.register_blueprint(song.api.blueprint)
